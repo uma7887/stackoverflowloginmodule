@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login Page</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+			var response = angular.module('response', []);
+	
+			response.controller('responseControl',function($scope,$http) 
+			{
+								
+				$scope.login=function(user,pwd)	{	
+				
+						//GET request 
+						var url = "http://localhost:9999/AppraisalFormWebApp/user/auth?email="+user+"&pwd="+pwd;
+						
+					$http.get(url).then(
+							function(payload) {
+								console.log( payload.data);
+								window.location = "Home.html";
+							});
+					
+				}
+				
+				$scope.signup=function(){
+					window.location = "registration.html";
+				}
+			});
+		</script>
+</head>
+<body ng-app="response" ng-controller="responseControl">
+<div class="login-page">
+  <h2>LOGIN</h2>
+  <div class="form">
+    <form class="login-form">
+      <input type="text" placeholder="mailid" ng-model="user"/>
+      <input type="password" placeholder="password" ng-model="password"/>
+      <button  ng-click=login(user,password)>login</button>
+      <p class="message"><a href="registration.html">Forgot Password?</a> </p>
+      <button ng-click=signup()>SignUp</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

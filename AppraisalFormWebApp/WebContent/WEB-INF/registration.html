@@ -1,0 +1,61 @@
+<html>
+<head>
+<title>Registration Form</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+			var response = angular.module('response', []);
+	
+			response.controller('responseControl',function($scope,$http) 
+			{
+								
+				$scope.submit=function(user,email,password)	{	
+				
+						//GET request 
+						var url = "http://localhost:9999/AppraisalFormWebApp/user/add?name="+user+"&email="+email+"&password="+password;
+						
+					$http.get(url).then(
+							function(payload) {
+								console.log( payload.data);
+								
+							});
+					
+				}
+				
+							
+				$scope.redirectIndex=function(){
+					window.location = "login.html";
+				}
+			});
+		</script>
+</head>
+<body ng-app="response" ng-controller="responseControl">
+<div class="login-page">
+  <h2>EMPLOYEE REGISTRATION FORM</h2>
+  <div class="form">
+  <form class="register-form">
+	<table>
+	  <tr>
+		<td>Name</td>
+		<td><input type="text" name="name" ng-model="user" /></td>
+	  </tr>
+	  <tr>
+		<td>Email</td>
+		<td><input type="text" name="email" ng-model="email"/></td>
+	  </tr>
+	  <tr>
+		<td>Password</td>
+		<td><input type="password" name="password" ng-model="pwd" /></td>
+	  </tr>
+	  <tr>
+		<td colspan="2" align="center">
+		 <button ng-click=submit(user,email,pwd)>submit</button>
+		 <button ng-click=redirectIndex()>login</button></td>
+	  </tr>
+	</table>
+  </form>
+  </div>
+  </div>
+  </body>
+</html>
